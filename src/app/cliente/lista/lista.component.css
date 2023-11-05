@@ -1,0 +1,36 @@
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.section{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    gap:5%;
+    
+}
+
+.card{
+    width: 20%;
+    height: 100%;
+    background-color: #21212160 #bb4d4d;
+    
+}
+
+.cardactive{
+   color:#bb4d4d;
+
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.example-disabled {
+  display: inline-block;
+}
