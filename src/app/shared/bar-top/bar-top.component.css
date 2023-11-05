@@ -1,0 +1,13 @@
+top-bar{
+    display: flex;
+    flex-direction: col;
+}
+
+.button{
+    width: 5%;
+    height: 100%;
+}
+
+.title{
+    padding-left: 1rem;
+}
