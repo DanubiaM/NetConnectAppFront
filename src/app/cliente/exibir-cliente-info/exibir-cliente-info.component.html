@@ -1,0 +1,29 @@
+<div class="modal">
+    <div class="modal__title">
+        <h3>Informações do cliente</h3>
+    </div>
+
+    <div class="modal__body">
+        <div class="modal__body--title">
+            <img src="https://icons-for-free.com/iconfiles/png/512/business+face+people+icon-1320086457520622872.png" width="150px">
+            <div><h4>{{data.nome | uppercase}}</h4> 
+                <mat-icon mat-raised-button matTooltip="Conta em atraso" aria-tooltip="Informação  de vencimento" *ngIf="data.vencido"  color="warn">flag</mat-icon>
+
+            </div>
+
+        </div>
+        <div class="modal__body--body">
+            
+            <p> Endereço: {{data.endereco}} <br> Telefone: <mat-icon> phone</mat-icon> {{data.contato}} </p>
+                <hr>
+            <p> Plano: {{data.plano}} <br> Valor: R$ {{data.valor}} </p>
+            <p>Servidor: {{data.servidor}}</p>
+
+        </div>
+
+    </div>
+
+    <footer class="modal__footer">
+        <button mat-stroked-button  color="warn">Baixar Boleto</button>
+    </footer>
+</div>
