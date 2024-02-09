@@ -1,0 +1,10 @@
+<div class="card" [ngStyle]="{'border-left': '4px solid '+colorCorderLeft}">
+    
+    <div class="card__header">
+        <ng-content select=".icon"></ng-content>        
+    </div>
+    <div class="card__body">
+        <p>{{valor}}</p>
+        <ng-content select=".titulo"></ng-content>
+    </div>            
+</div>

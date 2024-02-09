@@ -1,30 +1,48 @@
 
-<!-- mudar de card para lista selecional, ter um multiselect que tem o nome dos clientes, e quando selecionar eles, vai ficar so o card com o valor
- -->
-    <div class="container">
-        <h2  [class.cardactive]="ativoCard" (mouseover) ='onMouseOverOut()' >{{titleSection}}</h2>
-            <div class="section">
-                <mat-card class="card" *ngFor="let cliente of clientes" >
-                    <mat-card-header >
-                    <mat-card-title-group>
-                        <mat-card-title [style.color]="cliente.vencido ? 'red' : 'inherit' " >{{cliente.nome}}</mat-card-title>
-                        <mat-card-subtitle>{{cliente.servidor}}</mat-card-subtitle>
-                        <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-                    </mat-card-title-group>
-                    </mat-card-header>
-                    <mat-card-content>
-                       
-                    <ul>
-                        <li>{{cliente.contato}}</li>
-                        <li>{{cliente.plano}}</li>
-                        <li>{{cliente.valor}}</li>
-                    </ul>
-                    
-                    <p [style]=" cliente.vencido ? clienteVencido : ''">Mensalidade vencida !!!</p>
-                    <button mat-fab extended color="primary" (click)="openDialog(cliente.id)"> Ver Mais <mat-icon>search</mat-icon> </button> 
-
-                    </mat-card-content>
-                </mat-card>
-            </div>
+<div class="dashboard">
+    <div class="header">
+        <h2>Informações Clientes </h2> 
+        <p> <mat-icon>info</mat-icon> <i>Veja informações sobre os clientes cadastrados na plataforma.</i></p>
     </div>
+    <div class="container">
+        <app-tabela class="table"
+            [colunas]='obterNomeColunas()'
+            [data] = 'obterDadosTabela()'
+            [titulo]="'Buscar Clientes'"
+            [subtitulo]="'Busque informações de clientes cadastrados'"
+            (idSelecionado)="openDialog($event)"
+        > </app-tabela>
+
+        <div class="row">
+
+            <div  class="card_outside">
+                <app-card-dashboard color-border-left= "rgba(0, 255, 21, 0.596)"
+                                    valor="R$ 2200.00">
+
+                    <mat-icon [ngStyle]="{'font-size':'3.5em'}" class="icon"> attach_money</mat-icon>
+                    <h3 class="titulo"  [ngStyle]="{'margin-top':'0.5em'}">Faturamento do mês</h3>
+                </app-card-dashboard>       
+            </div>
+
+            <div  class="card_outside">
+                <app-card-dashboard color-border-left= "rgba(0, 255, 21, 0.596)"
+                                    valor="74">
+                    <mat-icon  [ngStyle]="{'font-size':'3.5em'}" class="icon">account_circle</mat-icon>
+                    <h3 class="titulo"  [ngStyle]="{'margin-top':'0.5em'}">Clientes Ativos</h3>
+                </app-card-dashboard>       
+            </div>
+
+            <div  class="card_outside">
+                <app-card-dashboard  color-border-left= "rgba(250, 53, 53, 0.596)" 
+                                    valor="15">
+                    <mat-icon [ngStyle]="{'font-size':'3.5em'}" class="icon">trending_down</mat-icon>
+                    <h3 class="titulo"  [ngStyle]="{'margin-top':'0.5em'}">Clientes em Atraso</h3>
+                </app-card-dashboard>       
+            </div>
+        
+        </div>  
+        
+        
+    </div>
+</div>
 

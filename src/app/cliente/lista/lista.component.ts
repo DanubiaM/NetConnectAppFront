@@ -20,13 +20,14 @@ export class ListaClientesComponent {
   clienteVencido = 'background-color: #bb4d4d; color: #fff; padding: 2px'
   ativoCard = false; 
   clienteService :ClienteService | undefined;
-
+  
 
 
   constructor(clienteService:ClienteService, public dialog: MatDialog){
 
     this.clientes=clienteService.getCliente();
     this.clienteService = clienteService;
+
   }
 
   onMouseOverOut(){
@@ -35,6 +36,7 @@ export class ListaClientesComponent {
 
   openDialog(_idClient: any){
 
+    console.log(_idClient)
     const selectClient = this.clientes.filter((cliente)=> cliente.id == _idClient)
 
 
@@ -47,5 +49,12 @@ export class ListaClientesComponent {
     });
   
   
+  }
+
+  obterNomeColunas(){
+    return ['id','nome','contato','plano','valor','servidor','endereco']
+  }
+  obterDadosTabela(){
+    return this.clientes;
   }
 }

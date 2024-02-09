@@ -10,6 +10,7 @@ import { ExibirClienteInfoComponent } from './exibir-cliente-info/exibir-cliente
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -18,7 +19,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   declarations: [
     CadastroComponent,
     ListaClientesComponent,
-    ExibirClienteInfoComponent
+    ExibirClienteInfoComponent,
   ],
   imports: [
     MatCardModule,
@@ -26,7 +27,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    SharedModule
+    
   ],
   exports:[ListaClientesComponent],
   providers:[
