@@ -1,0 +1,6 @@
+.info__header{
+    background: #DA4453;  
+    background: -webkit-linear-gradient(to right, #89216B, #DA4453); 
+    background: linear-gradient(to right, #89216B, #DA4453); 
+    padding: 2em;     
+}

@@ -1,0 +1,134 @@
+<div layout="row" class="container mx-auto h-lvh">
+    <div class="dashboard__header my-4">
+        <h2>ORÇAMENTOS</h2>
+    </div>
+
+    <div class="flex space-x-8">
+        <div class="flex-1">
+            <app-card-dashboard color-border-left="rgba(0, 255, 21, 0.596)" valor={{dashboardInfo.num_orcamento}}>
+                <mat-icon [ngStyle]="{'font-size':'3.5em'}" class="icon"> request_page</mat-icon>
+                <h3 class="titulo" [ngStyle]="{'margin-top':'0.5em'}">ORÇAMENTOS</h3>
+            </app-card-dashboard>
+        </div>
+
+        <div class="flex-1">
+            <app-card-dashboard color-border-left="rgba(0, 255, 21, 0.596)"
+                valor={{dashboardInfo.num_orcamento_fechado}}>
+                <mat-icon [ngStyle]="{'font-size':'3.5em'}" class="icon"> task</mat-icon>
+                <h3 class="titulo" [ngStyle]="{'margin-top':'0.5em'}">ORÇAMENTOS FECHADOS</h3>
+            </app-card-dashboard>
+        </div>
+
+        <div class="flex-1">
+            <app-card-dashboard color-border-left="rgba(0, 255, 21, 0.596)"
+                valor={{dashboardInfo.num_orcamento_aberto}}>
+                <mat-icon [ngStyle]="{'font-size':'3.5em'}" class="icon"> file_open</mat-icon>
+                <h3 class="titulo" [ngStyle]="{'margin-top':'0.5em'}">ORÇAMENTO ABERTO</h3>
+            </app-card-dashboard>
+        </div>
+    </div>
+
+    <!--  Table -->
+    <div class="py-5">
+        <div class="flex flex-row content-center items-center place-items-center">
+            <div class="grow h-14">
+                <mat-form-field>
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Cameras de Segurança" #input>
+                </mat-form-field>
+            </div>
+            <div class="flex-none h-full">
+                <button mat-raised-button  routerLink="/orcamento/cadastro">
+                    <mat-icon>add</mat-icon>
+                    Novo Orçamento
+                </button>
+            </div>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Data Column -->
+            <ng-container matColumnDef="data">
+                <th mat-header-cell *matHeaderCellDef> Data </th>
+                <td mat-cell *matCellDef="let element"> {{element.data | date:"dd/MM/yy"}} </td>
+            </ng-container>
+
+            <!-- Título Column -->
+            <ng-container matColumnDef="titulo">
+                <th mat-header-cell *matHeaderCellDef> Título </th>
+                <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+            </ng-container>
+
+            <!-- Cliente Column -->
+            <ng-container matColumnDef="cliente">
+                <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
+            </ng-container>
+
+            <!-- Valor Column -->
+            <ng-container matColumnDef="valor">
+                <th mat-header-cell *matHeaderCellDef> Valor </th>
+                <td mat-cell *matCellDef="let element"> {{element.valor | currency:'BRL'}} </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element">
+                    <a class="chip-status" [class]="  {
+                        'status-aberto': element.status === 'ABERTO',
+                        'status-fechado': element.status === 'FECHADO',
+                        'status-declinado': element.status === 'DECLINADO'
+                        }">
+                        {{element.status}}
+                    </a>
+
+                </td>
+            </ng-container>
+
+            <!-- Ações Column -->
+            <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>delete</mat-icon>
+                            <span>Excluir</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>edit</mat-icon>
+                            <span>Editar</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>content_copy</mat-icon>
+                            <span>Duplicar</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>picture_as_pdf</mat-icon>
+                            <span>Baixar Orçamento</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>download</mat-icon>
+                            <span>Baixar Detalhamento</span>
+                        </button>
+                    </mat-menu>
+                </td>
+
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"
+            aria-label="Selecione paginas de orçamentos"></mat-paginator>
+
+    </div>
+</div>

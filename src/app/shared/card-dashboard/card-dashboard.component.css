@@ -11,16 +11,26 @@
     
 }
 
-
 .card{
     display: flex;
     height: 80px;
-    align-content: flex-end;
+    align-items: center;
     justify-content: space-evenly;
     flex-direction: row;
     font-size: 1 em;
     padding: 0;
-    align-items: flex-end; 
-
-    
 }
+
+.card_outside {
+    padding: 1em;
+    background-color: rgba(87, 87, 87, 0.478);
+    border-radius: 3px;
+    border: 1px solid rgb(73, 73, 88);
+    width: 100%;
+
+}
+
+.card_outside h3{
+    margin: 0;
+}
+

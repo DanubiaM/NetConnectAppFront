@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/purple-green.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #212121; }
+:root{
+    --btn-solid-color: rgba(247, 45, 82, 0.884);
+    --btn-trans-color: rgba(247, 45, 82, 0.3);
+
+}

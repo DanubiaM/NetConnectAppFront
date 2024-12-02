@@ -8,19 +8,22 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import { ClienteModule } from './cliente/cliente.module';
-import {NgIf} from '@angular/common';
+import {NgIf, registerLocaleData} from '@angular/common';
 import {SharedModule} from './shared/shared.module'
 import {MatButtonModule} from '@angular/material/button';
 import { routing } from './app.routing';
+import { OrcamentoModule } from './orcamento/orcamento.module';
+import localePt from '@angular/common/locales/pt';
 
 
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
     AppComponent
-    
   ],
   imports: [
+    OrcamentoModule,    
     ClienteModule,
     MatTableModule,
     MatSidenavModule,
@@ -39,9 +42,7 @@ import { routing } from './app.routing';
       useValue: 'pt-BR'
     }
   ],
-  bootstrap: [AppComponent],
-
-  
+  bootstrap: [AppComponent]  
 })
 export class AppModule {
 
