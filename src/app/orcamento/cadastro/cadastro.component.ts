@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { map, Observable, of, startWith } from 'rxjs';
+import { OrcamentoService } from '../orcamento.service';
+import { Cliente } from '../dto/cliente';
 
 @Component({
   selector: 'app-cadastro',
@@ -8,20 +10,24 @@ import { map, Observable, of, startWith } from 'rxjs';
   styleUrls: ['./cadastro.component.css']
 })
 export class CadastroComponent implements OnInit {
-  firstFormGroup = this._formBuilder.group({
+
+  clientFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
+
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
 
   myControl = new FormControl('');
-  options: string[] = ['Fernando Fazendas', 'Fazenda Marajá', 'SESC'];
+  
   filteredOptions: Observable<string[]>;
 
+  clientes : Cliente[];
   
-  constructor(private _formBuilder: FormBuilder) {
-    this.filteredOptions = of(this.options);
+  constructor(private orcamentoService: OrcamentoService, private _formBuilder: FormBuilder) {
+    this.filteredOptions = of([]);
+    this.clientes = orcamentoService.getClientes();
   }
 
   ngOnInit() {
@@ -34,6 +40,8 @@ export class CadastroComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.clientes.filter(option => option.nome.toLowerCase().includes(filterValue))
+                        .map(option => option.nome);
   }
+
 }

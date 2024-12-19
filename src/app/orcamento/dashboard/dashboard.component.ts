@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { DashboardInfo } from '../Dashboard';
+import { DashboardInfo } from '../dto/dashboard';
 import { OrcamentoService } from '../orcamento.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { OrcamentosTabela } from '../orcamentoTabela';
+import { OrcamentosTabela } from '../dto/orcamentoTabela';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DashboardInfo } from './Dashboard';
-import { OrcamentosTabela } from './orcamentoTabela';
+import { DashboardInfo } from './dto/dashboard';
+import { OrcamentosTabela } from './dto/orcamentoTabela';
+import { Cliente } from './dto/cliente';
 
 const DASHBOARD_DATA: DashboardInfo =  {num_orcamento:500, num_orcamento_fechado:232,num_orcamento_aberto:454};
 const ORCAMENTOS_TABELA_DATA: OrcamentosTabela[] = 
@@ -112,6 +113,34 @@ const ORCAMENTOS_TABELA_DATA: OrcamentosTabela[] =
   "status": "FECHADO"
 }]
 
+const LISTA_CLIENTES: Cliente[] = [
+  {
+    "id":"95f19eb4-cd39-4cd3-829f-caf0816aea6e",
+    "nome":"Fernando Fazendas",
+    "endereco":"Fernando Fazendas",
+    "identificacao":"234234.234.23",
+    "telefone":"655556544",
+    "email":"fernando.fazenda@gmail.com"
+  },
+  {
+    "id":"ebb4eabe-5e6b-4999-894d-b5bda45f227f",
+    "nome":"Fazendas Marajá",
+    "endereco":"Fernando Fazendas",
+    "identificacao":"234234.234.23",
+    "telefone":"655556544",
+    "email":"maraja@gmail.com"
+  },
+  {
+    "id":"a6e5635b-c596-4400-be04-960cfd98ba44",
+    "nome":"Copacell",
+    "endereco":"Fernando Fazendas",
+    "identificacao":'234234.234.23',
+    "telefone":"655556544",
+    "email":"capecell@gmail.com"
+  },
+
+];
+
 @Injectable()
 export class OrcamentoService {
 
@@ -123,5 +152,9 @@ export class OrcamentoService {
 
   getOrcamentos(){
     return ORCAMENTOS_TABELA_DATA;
+  }
+
+  getClientes(){
+    return LISTA_CLIENTES;
   }
 }
