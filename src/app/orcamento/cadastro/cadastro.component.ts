@@ -52,8 +52,6 @@ export class CadastroComponent implements OnInit {
 
     if(this.clienteFiltered != null){
       this.mostrarCliente = true;
-    } else{
-      this.mostrarCliente = false;
     }
   }
 
