@@ -24,7 +24,9 @@ export class CadastroComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   clientes : Cliente[];
   clienteFiltered: Cliente | null = null; 
-  
+  mostrarCliente: boolean = false;
+
+
   constructor(private orcamentoService: OrcamentoService, private _formBuilder: FormBuilder) {
     this.filteredOptions = of([]);
     this.clientes = orcamentoService.getClientes();
@@ -47,7 +49,18 @@ export class CadastroComponent implements OnInit {
   onOptionSelected(event: any): void {
     const selectedValue = event.option.value;
     this.clienteFiltered = this.clientes.find(cliente => cliente.nome === selectedValue) || null;
-    console.log('Selected option:', this.clienteFiltered);
+
+    if(this.clienteFiltered != null){
+      this.mostrarCliente = true;
+    } else{
+      this.mostrarCliente = false;
+    }
   }
+
+  onClearFilter():void{
+    this.myControl.setValue('');
+    this.mostrarCliente = false;
+  }
+
 
 }

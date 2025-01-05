@@ -2,39 +2,52 @@
 
     <mat-stepper #stepper>
         <mat-step [stepControl]="clientFormGroup" errorMessage="Name is required.">
-            <form [formGroup]="clientFormGroup" >
+            <form [formGroup]="clientFormGroup">
                 <ng-template matStepLabel>Cliente</ng-template>
                 <div>
                     <h2>Encontre um cliente</h2>
-                    <div class="flex space-x-4 items-center" >
+                    <div class="flex space-x-4 items-center">
                         <mat-form-field class="flex-auto w-64">
                             <mat-label>Clientes</mat-label>
-                            <input type="text" placeholder="Escolha um" aria-label="Cliente" matInput [formControl]="myControl"
-                                [matAutocomplete]="auto">
-                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"  (optionSelected)="onOptionSelected($event)">
+                            <div class="flex flex-row justify-center items-center">
+                                <input type="text" placeholder="Escolha um" aria-label="Cliente" matInput
+                                    [formControl]="myControl" [matAutocomplete]="auto">
+                                <button type="button" (click)="onClearFilter()">
+                                    <mat-icon class="text-sm">close</mat-icon>
+                                </button>
+                            </div>
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                                (optionSelected)="onOptionSelected($event)">
                                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                                     {{option}}
                                 </mat-option>
                             </mat-autocomplete>
+
                         </mat-form-field>
                         <button class="flex-none w-32" mat-flat-button matStepperNext color="primary">Novo</button>
                     </div>
                     <div class="mb-4">
                         <h3>Informações do Cliente</h3>
                         <div class="border-2 border-zinc-600">
-                            <div class="flex flex-row justify-center items-center info__header">                                
-                                <mat-icon class="text-2xl">apartment</mat-icon>                                
+                            <div class="flex flex-row justify-center items-center info__header">
+                                <mat-icon class="text-2xl">apartment</mat-icon>
                             </div>
-                            <div class="flex flex-column place-content-around py-5">
-                                <div class="flex flex-col justify-between ">
-                                    <p> {{clienteFiltered? clienteFiltered.nome: ''}}</p>
-                                    <p> CPF/CNPJ 234234.234.23</p>
+                            <div>
+                                <div class="flex flex-column place-content-around py-5" *ngIf="!mostrarCliente">
+                                    Nenhum cliente encontrado
                                 </div>
-                                <div class="flex flex-col justify-between">
-                                    <p> Endereço Rua Tal, VG/MT </p>
-                                   <p> Telefone 655556544 </p>
-                                   <p> E-mail asdasd@gmail.com </p>
-                                </div>                                
+                                <div class="flex flex-column place-content-around py-5"
+                                    *ngIf="mostrarCliente && clienteFiltered">
+                                    <div class="flex flex-col justify-between ">
+                                        <p> {{clienteFiltered.nome}}</p>
+                                        <p> {{clienteFiltered.identificacao}}</p>
+                                    </div>
+                                    <div class="flex flex-col justify-between">
+                                        <p> Endereço {{clienteFiltered.endereco}} </p>
+                                        <p> Telefone {{clienteFiltered.telefone}} </p>
+                                        <p> E-mail {{clienteFiltered.email}} </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,7 +76,7 @@
             <p>You are now done.</p>
             <div class="flex flex-row justify-between">
                 <button mat-flat-button matStepperPrevious color="warn">Back</button>
-                <button mat-flat-button (click)="stepper.reset()" color="accent" >Reset</button>
+                <button mat-flat-button (click)="stepper.reset()" color="accent">Reset</button>
             </div>
         </mat-step>
     </mat-stepper>
