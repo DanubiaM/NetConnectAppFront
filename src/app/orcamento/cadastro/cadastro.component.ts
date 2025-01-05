@@ -22,8 +22,8 @@ export class CadastroComponent implements OnInit {
   myControl = new FormControl('');
   
   filteredOptions: Observable<string[]>;
-
   clientes : Cliente[];
+  clienteFiltered: Cliente | null = null; 
   
   constructor(private orcamentoService: OrcamentoService, private _formBuilder: FormBuilder) {
     this.filteredOptions = of([]);
@@ -42,6 +42,12 @@ export class CadastroComponent implements OnInit {
 
     return this.clientes.filter(option => option.nome.toLowerCase().includes(filterValue))
                         .map(option => option.nome);
+  }
+
+  onOptionSelected(event: any): void {
+    const selectedValue = event.option.value;
+    this.clienteFiltered = this.clientes.find(cliente => cliente.nome === selectedValue) || null;
+    console.log('Selected option:', this.clienteFiltered);
   }
 
 }

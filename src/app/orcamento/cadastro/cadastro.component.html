@@ -2,16 +2,16 @@
 
     <mat-stepper #stepper>
         <mat-step [stepControl]="clientFormGroup" errorMessage="Name is required.">
-            <form [formGroup]="clientFormGroup">
+            <form [formGroup]="clientFormGroup" >
                 <ng-template matStepLabel>Cliente</ng-template>
                 <div>
                     <h2>Encontre um cliente</h2>
-                    <div class="flex space-x-4 items-center">
+                    <div class="flex space-x-4 items-center" >
                         <mat-form-field class="flex-auto w-64">
                             <mat-label>Clientes</mat-label>
                             <input type="text" placeholder="Escolha um" aria-label="Cliente" matInput [formControl]="myControl"
                                 [matAutocomplete]="auto">
-                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"  (optionSelected)="onOptionSelected($event)">
                                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                                     {{option}}
                                 </mat-option>
@@ -27,7 +27,7 @@
                             </div>
                             <div class="flex flex-column place-content-around py-5">
                                 <div class="flex flex-col justify-between ">
-                                    <p> Nome EMPRESA TAL </p>
+                                    <p> {{clienteFiltered? clienteFiltered.nome: ''}}</p>
                                     <p> CPF/CNPJ 234234.234.23</p>
                                 </div>
                                 <div class="flex flex-col justify-between">
