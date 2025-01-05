@@ -24,7 +24,6 @@ import { CardDashboardComponent } from './card-dashboard/card-dashboard.componen
   imports: [
     CommonModule, MatButtonModule, MatToolbarModule,
     MatIconModule, MatSidenavModule, routing, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule
-
   ],
 })
 export class SharedModule { }

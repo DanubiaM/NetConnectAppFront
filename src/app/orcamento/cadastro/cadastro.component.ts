@@ -3,11 +3,14 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { map, Observable, of, startWith } from 'rxjs';
 import { OrcamentoService } from '../orcamento.service';
 import { Cliente } from '../dto/cliente';
+import { MatDialog } from '@angular/material/dialog';
+import { CadastroModalComponent } from 'src/app/cliente/cadastro-modal/cadastro-modal.component';
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
-  styleUrls: ['./cadastro.component.css']
+  styleUrls: ['./cadastro.component.css'],
+  providers:[CadastroModalComponent]
 })
 export class CadastroComponent implements OnInit {
 
@@ -27,7 +30,7 @@ export class CadastroComponent implements OnInit {
   mostrarCliente: boolean = false;
 
 
-  constructor(private orcamentoService: OrcamentoService, private _formBuilder: FormBuilder) {
+  constructor(private orcamentoService: OrcamentoService, private _formBuilder: FormBuilder, public dialog: MatDialog) {
     this.filteredOptions = of([]);
     this.clientes = orcamentoService.getClientes();
   }
@@ -60,5 +63,8 @@ export class CadastroComponent implements OnInit {
     this.mostrarCliente = false;
   }
 
-
+  openDialog() {
+    this.dialog.open(CadastroModalComponent);
+  }
+  
 }

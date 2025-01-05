@@ -8,9 +8,9 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatButtonModule} from '@angular/material/button';
 import { ExibirClienteInfoComponent } from './exibir-cliente-info/exibir-cliente-info.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SharedModule } from '../shared/shared.module';
+import { CadastroModalComponent } from './cadastro-modal/cadastro-modal.component';
 
 
 
@@ -20,6 +20,7 @@ import { SharedModule } from '../shared/shared.module';
     CadastroComponent,
     ListaClientesComponent,
     ExibirClienteInfoComponent,
+    CadastroModalComponent,
   ],
   imports: [
     MatCardModule,
@@ -31,7 +32,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
     
   ],
-  exports:[ListaClientesComponent],
+  exports:[ListaClientesComponent, CadastroModalComponent],
   providers:[
     ClienteService
   ]
