@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ListaClientesComponent } from './lista/lista.component';
 import {MatCardModule} from '@angular/material/card';
@@ -11,6 +11,9 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SharedModule } from '../shared/shared.module';
 import { CadastroModalComponent } from './cadastro-modal/cadastro-modal.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -29,8 +32,12 @@ import { CadastroModalComponent } from './cadastro-modal/cadastro-modal.componen
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
-    SharedModule
-    
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf    
   ],
   exports:[ListaClientesComponent, CadastroModalComponent],
   providers:[

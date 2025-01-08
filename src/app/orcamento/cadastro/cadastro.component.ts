@@ -10,7 +10,7 @@ import { CadastroModalComponent } from 'src/app/cliente/cadastro-modal/cadastro-
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css'],
-  providers:[CadastroModalComponent]
+  providers: [CadastroModalComponent]
 })
 export class CadastroComponent implements OnInit {
 
@@ -23,14 +23,16 @@ export class CadastroComponent implements OnInit {
   });
 
   myControl = new FormControl('');
-  
+
   filteredOptions: Observable<string[]>;
-  clientes : Cliente[];
-  clienteFiltered: Cliente | null = null; 
+  clientes: Cliente[];
+  clienteFiltered: Cliente | null = null;
   mostrarCliente: boolean = false;
 
 
-  constructor(private orcamentoService: OrcamentoService, private _formBuilder: FormBuilder, public dialog: MatDialog) {
+  constructor(private orcamentoService: OrcamentoService,
+    private _formBuilder: FormBuilder,
+    public dialog: MatDialog) {
     this.filteredOptions = of([]);
     this.clientes = orcamentoService.getClientes();
   }
@@ -46,19 +48,19 @@ export class CadastroComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.clientes.filter(option => option.nome.toLowerCase().includes(filterValue))
-                        .map(option => option.nome);
+      .map(option => option.nome);
   }
 
   onOptionSelected(event: any): void {
     const selectedValue = event.option.value;
     this.clienteFiltered = this.clientes.find(cliente => cliente.nome === selectedValue) || null;
 
-    if(this.clienteFiltered != null){
+    if (this.clienteFiltered != null) {
       this.mostrarCliente = true;
     }
   }
 
-  onClearFilter():void{
+  onClearFilter(): void {
     this.myControl.setValue('');
     this.mostrarCliente = false;
   }
@@ -67,4 +69,5 @@ export class CadastroComponent implements OnInit {
     this.dialog.open(CadastroModalComponent);
   }
   
+
 }
