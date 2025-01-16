@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CadastroComponent } from 'src/app/orcamento/cadastro/cadastro.component';
 import { Cliente } from 'src/app/orcamento/dto/cliente';
 
-
 @Component({
   selector: 'app-cadastro-modal',
   templateUrl: './cadastro-modal.component.html',
@@ -12,14 +11,17 @@ import { Cliente } from 'src/app/orcamento/dto/cliente';
 })
 export class CadastroModalComponent {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-
   clienteRegisterFormGroup = this._formBuilder.group({
-    nome: [null, Validators.required],
-    identificao: [null, Validators.required],
-    email: [null, Validators.required],
-    telefone: [null, Validators.required],
-    endereco: [null, Validators.required],
+    nome: [null, [Validators.required, Validators.minLength(1)]],
+    identificacao: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
+    email: [null, [Validators.required, Validators.email]],
+    telefone: [null, 
+      [
+        Validators.required,
+        Validators.pattern("^\\+?55\\s?\\(?\\d{2}\\)?\\s?\\d{4,5}-?\\d{4}$|^\\(?\\d{2}\\)?\\s?\\d{4,5}-?\\d{4}$")
+      ]
+    ],
+    endereco: [null, [Validators.required, Validators.maxLength(50)]],
   });
 
   constructor( public dialogRef: MatDialogRef<CadastroComponent>,
@@ -39,12 +41,33 @@ export class CadastroModalComponent {
     this.dialogRef.close();
   }
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
+  getErrorMessage(inputName: string) {
+    const control = this.clienteRegisterFormGroup.get(inputName);
+    
+    if (control?.hasError('required')) {
+      return 'O valor é obrigatório.';
+    }
+    
+    if (control?.hasError('email')) {
+      return 'E-mail inválido.';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    if (control?.hasError('minlength')) {
+      const requiredLength = control?.errors?.['minlength']?.requiredLength;
+      return `O valor deve ter pelo menos ${requiredLength} caracteres.`;
+    }
+
+    if (control?.hasError('maxlength')) {
+      const requiredLength = control?.errors?.['maxlength']?.requiredLength;
+      return `O valor deve ter no máximo ${requiredLength} caracteres.`;
+
+    }
+
+    if (control?.hasError('pattern')) {
+      return 'Formato Inválido';
+    }
+
+    return null;
   }
 
 
