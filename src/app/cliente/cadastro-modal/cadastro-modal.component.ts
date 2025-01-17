@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CadastroComponent } from 'src/app/orcamento/cadastro/cadastro.component';
 import { Cliente } from 'src/app/orcamento/dto/cliente';
+import { ClienteService } from '../cliente.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cadastro-modal',
@@ -27,14 +29,19 @@ export class CadastroModalComponent {
   constructor( public dialogRef: MatDialogRef<CadastroComponent>,
      @Inject(MAT_DIALOG_DATA) public data: Cliente,
       private _formBuilder: FormBuilder,
+      private _snackBar: MatSnackBar,
+      private clienteService: ClienteService
     ) 
   {
   }
 
-  onSubmit(){
-    console.log("here")
-    console.warn(this.clienteRegisterFormGroup.value);
+  onSubmit(formDirective: FormGroupDirective){
 
+    this.clienteService.save(this.clienteRegisterFormGroup.value);
+
+    this.clienteRegisterFormGroup.reset();
+    formDirective.resetForm(); 
+    this.openSnackBar();
   }
 
   onNoClick(): void {
@@ -70,5 +77,8 @@ export class CadastroModalComponent {
     return null;
   }
 
+  openSnackBar() {
+    this._snackBar.open("Cliente Registrado", "✔️",{ duration: 5000});
+  }
 
 }

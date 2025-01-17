@@ -25,7 +25,7 @@ export class ListaClientesComponent {
 
   constructor(clienteService:ClienteService, public dialog: MatDialog){
 
-    this.clientes=clienteService.getCliente();
+    this.clientes=clienteService.getAllCustomer();
     this.clienteService = clienteService;
 
   }

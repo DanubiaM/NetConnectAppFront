@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ClienteInfo } from './cliente';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Cliente } from '../orcamento/dto/cliente';
+import { catchError, Observable } from 'rxjs';
 
 
 const CLIENTE_DATA: ClienteInfo[] = [
@@ -14,11 +17,23 @@ const CLIENTE_DATA: ClienteInfo[] = [
 @Injectable()
 export class ClienteService {
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
   constructor() { }
 
-  getCliente(){
+  getAllCustomer(){
     return CLIENTE_DATA;
   }
 
+  save(customer: any) {
+    CLIENTE_DATA.push(customer);
+    console.log(CLIENTE_DATA)
+    //TODO: implementar HTTP client
+   // return this.httpClient.post(BASE_URL + '/customer/', JSON.stringify(customer), this.httpOptions);
+  }
+  
 
 }
