@@ -17,12 +17,14 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CadastroClienteModalComponent } from './cadastro-cliente-modal/cadastro-cliente-modal.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    CadastroComponent
+    CadastroComponent,
+    CadastroClienteModalComponent
   ],
   imports: [
     CommonModule,

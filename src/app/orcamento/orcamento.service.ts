@@ -157,4 +157,11 @@ export class OrcamentoService {
   getClientes(){
     return LISTA_CLIENTES;
   }
+
+  saveCustomer(customer: any) {
+    LISTA_CLIENTES.push(customer);
+    console.log(LISTA_CLIENTES)
+    //TODO: implementar HTTP client
+   // return this.httpClient.post(BASE_URL + '/customer/', JSON.stringify(customer), this.httpOptions);
+  }
 }

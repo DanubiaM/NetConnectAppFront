@@ -10,7 +10,6 @@ import { ExibirClienteInfoComponent } from './exibir-cliente-info/exibir-cliente
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SharedModule } from '../shared/shared.module';
-import { CadastroModalComponent } from './cadastro-modal/cadastro-modal.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +22,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CadastroComponent,
     ListaClientesComponent,
     ExibirClienteInfoComponent,
-    CadastroModalComponent,
   ],
   imports: [
     MatCardModule,
@@ -39,7 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     NgIf    
   ],
-  exports:[ListaClientesComponent, CadastroModalComponent],
+  exports:[ListaClientesComponent],
   providers:[
     ClienteService
   ]

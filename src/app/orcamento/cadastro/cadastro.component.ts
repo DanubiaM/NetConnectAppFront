@@ -4,13 +4,13 @@ import { map, Observable, of, startWith } from 'rxjs';
 import { OrcamentoService } from '../orcamento.service';
 import { Cliente } from '../dto/cliente';
 import { MatDialog } from '@angular/material/dialog';
-import { CadastroModalComponent } from 'src/app/cliente/cadastro-modal/cadastro-modal.component';
+import { CadastroClienteModalComponent } from '../cadastro-cliente-modal/cadastro-cliente-modal.component';
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css'],
-  providers: [CadastroModalComponent]
+  providers: [CadastroClienteModalComponent]
 })
 export class CadastroComponent implements OnInit {
 
@@ -66,7 +66,7 @@ export class CadastroComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialog.open(CadastroModalComponent);
+    this.dialog.open(CadastroClienteModalComponent);
   }
   
 

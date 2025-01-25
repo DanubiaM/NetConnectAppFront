@@ -28,12 +28,4 @@ export class ClienteService {
     return CLIENTE_DATA;
   }
 
-  save(customer: any) {
-    CLIENTE_DATA.push(customer);
-    console.log(CLIENTE_DATA)
-    //TODO: implementar HTTP client
-   // return this.httpClient.post(BASE_URL + '/customer/', JSON.stringify(customer), this.httpOptions);
-  }
-  
-
 }
