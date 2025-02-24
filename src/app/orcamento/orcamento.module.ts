@@ -1,3 +1,4 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgModule } from '@angular/core';
 import { AsyncPipe, CommonModule, NgFor } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -18,13 +19,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CadastroClienteModalComponent } from './cadastro-cliente-modal/cadastro-cliente-modal.component';
+import { DetalhamentoComponent } from './detalhamento/detalhamento.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ItensOrcamentoTabelaComponent } from './itens-orcamento-tabela/itens-orcamento-tabela.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CadastroComponent,
-    CadastroClienteModalComponent
+    CadastroClienteModalComponent,
+    DetalhamentoComponent,
+    ItensOrcamentoTabelaComponent
   ],
   imports: [
     CommonModule,
@@ -38,10 +45,13 @@ import { CadastroClienteModalComponent } from './cadastro-cliente-modal/cadastro
     MatPaginatorModule,
     MatSortModule,
     MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatSnackBarModule,
+    MatTabsModule,
     NgFor,
     AsyncPipe,
     routing
