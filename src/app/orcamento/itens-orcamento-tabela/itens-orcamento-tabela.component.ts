@@ -1,6 +1,9 @@
 import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { Item } from '../dto/Item';
 import { MatTable } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { EditarItemBottomSheetComponent } from '../editar-item-bottom-sheet/editar-item-bottom-sheet.component';
 
 @Component({
   selector: 'app-itens-orcamento-tabela',
@@ -21,6 +24,10 @@ export class ItensOrcamentoTabelaComponent {
     }  
  
  }
+
+  constructor( private _snackBar: MatSnackBar, private _bottomSheet: MatBottomSheet) 
+  {
+  }
  
  get newItem(): Item {
     return this._newItem; 
@@ -31,5 +38,32 @@ export class ItensOrcamentoTabelaComponent {
     this.dataSource.push(newRow)
     this.table.renderRows();
 
+  }
+
+  deleteItem(descricao: string){
+
+    this.dataSource.filter((item,index) => {
+      if(item.descricao == descricao){
+        this.dataSource.splice(index,1)
+      }
+    })
+
+    this.table.renderRows();
+    this.openSnackBar("Item "+descricao+" removido com sucesso!")
+  }
+
+  sendItemToInternDetail(item: Item){
+    console.log(item);
+    
+    this.openSnackBar("Item adicionado ao detalhamento interno!")
+
+  }
+
+  openSnackBar(mensagem: string ) {
+    this._snackBar.open(mensagem, "✔️",{ duration: 5000});
+  }
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(EditarItemBottomSheetComponent);
   }
 }

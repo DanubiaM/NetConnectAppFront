@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -23,6 +24,9 @@ import { DetalhamentoComponent } from './detalhamento/detalhamento.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ItensOrcamentoTabelaComponent } from './itens-orcamento-tabela/itens-orcamento-tabela.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditarItemBottomSheetComponent } from './editar-item-bottom-sheet/editar-item-bottom-sheet.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -31,7 +35,8 @@ import { ItensOrcamentoTabelaComponent } from './itens-orcamento-tabela/itens-or
     CadastroComponent,
     CadastroClienteModalComponent,
     DetalhamentoComponent,
-    ItensOrcamentoTabelaComponent
+    ItensOrcamentoTabelaComponent,
+    EditarItemBottomSheetComponent
   ],
   imports: [
     CommonModule,
@@ -41,12 +46,15 @@ import { ItensOrcamentoTabelaComponent } from './itens-orcamento-tabela/itens-or
     MatInputModule,
     MatTableModule,
     MatButtonModule,
+    MatListModule,
     MatMenuModule,
     MatPaginatorModule,
     MatSortModule,
     MatStepperModule,
+    MatBottomSheetModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
