@@ -25,8 +25,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ItensOrcamentoTabelaComponent } from './itens-orcamento-tabela/itens-orcamento-tabela.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditarItemBottomSheetComponent } from './editar-item-bottom-sheet/editar-item-bottom-sheet.component';
 import {MatListModule} from '@angular/material/list';
+import { ItemFormBottomSheetComponent } from './item-form-bottom-sheet/item-form-bottom-sheet.component';
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import {MatListModule} from '@angular/material/list';
     CadastroClienteModalComponent,
     DetalhamentoComponent,
     ItensOrcamentoTabelaComponent,
-    EditarItemBottomSheetComponent
+    ItemFormBottomSheetComponent
   ],
   imports: [
     CommonModule,

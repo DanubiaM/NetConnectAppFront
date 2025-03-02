@@ -51,7 +51,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div>
                         <button mat-flat-button matStepperNext color="primary">Próximo</button>
                     </div>
@@ -61,7 +60,7 @@
         <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
             <form [formGroup]="secondFormGroup">
                 <ng-template matStepLabel>Orçamento</ng-template>
-                <app-detalhamento></app-detalhamento>
+                <app-detalhamento ></app-detalhamento>
                 <!-- <mat-form-field>
                     <mat-label>Address</mat-label>
                     <input matInput placeholder="Ex. 1 Main St, New York, NY" formControlName="secondCtrl" required>

@@ -3,7 +3,7 @@ import { Item } from '../dto/Item';
 import { MatTable } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { EditarItemBottomSheetComponent } from '../editar-item-bottom-sheet/editar-item-bottom-sheet.component';
+import { ItemFormBottomSheetComponent } from '../item-form-bottom-sheet/item-form-bottom-sheet.component';
 
 @Component({
   selector: 'app-itens-orcamento-tabela',
@@ -20,7 +20,7 @@ export class ItensOrcamentoTabelaComponent {
      
     if(value !== undefined) {
       this._newItem = value;
-      this.updateTable(this._newItem);
+      this.openBottomSheet(this._newItem);
     }  
  
  }
@@ -34,36 +34,53 @@ export class ItensOrcamentoTabelaComponent {
  }
 
   updateTable(newRow: Item){
-    console.log(newRow);
     this.dataSource.push(newRow)
     this.table.renderRows();
 
   }
 
-  deleteItem(descricao: string){
+  deleteItem(id: string){
 
     this.dataSource.filter((item,index) => {
-      if(item.descricao == descricao){
+      if(item.id == id){
         this.dataSource.splice(index,1)
       }
     })
 
     this.table.renderRows();
-    this.openSnackBar("Item "+descricao+" removido com sucesso!")
+    this.openSnackBar("Item removido com sucesso!")
   }
 
   sendItemToInternDetail(item: Item){
-    console.log(item);
     
     this.openSnackBar("Item adicionado ao detalhamento interno!")
-
   }
 
   openSnackBar(mensagem: string ) {
     this._snackBar.open(mensagem, "✔️",{ duration: 5000});
   }
 
-  openBottomSheet(): void {
-    this._bottomSheet.open(EditarItemBottomSheetComponent);
+  openBottomSheet(itemToEdit: Item): void {
+   
+    const bottomSheetRef = this._bottomSheet.open(ItemFormBottomSheetComponent,{
+      data:{
+        item: itemToEdit
+      }
+    });
+
+    bottomSheetRef.instance.itemToSend.subscribe((updatedItem: Item) => {
+      this.updateItem(updatedItem);
+   });
+  }
+
+  updateItem(updatedItem: Item){
+    this.dataSource.forEach( (item, index) => {
+      if(item.id === updatedItem.id){
+        this.dataSource.splice(index,1);
+      }
+    });
+    this.updateTable(updatedItem);
+
+    this.openSnackBar("Item "+ updatedItem.descricao + " Atualizado com sucesso!")
   }
 }
