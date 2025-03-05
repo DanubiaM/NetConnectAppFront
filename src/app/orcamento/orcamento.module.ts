@@ -27,6 +27,10 @@ import { ItensOrcamentoTabelaComponent } from './itens-orcamento-tabela/itens-or
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { ItemFormBottomSheetComponent } from './item-form-bottom-sheet/item-form-bottom-sheet.component';
+import { ClienteComponent } from './cliente/cliente.component';
+import { DetalhamentoInternoComponent } from './detalhamento-interno/detalhamento-interno.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ItemInternoFormBottomSheetComponent } from './item-interno-form-bottom-sheet/item-interno-form-bottom-sheet.component';
 
 
 @NgModule({
@@ -36,7 +40,10 @@ import { ItemFormBottomSheetComponent } from './item-form-bottom-sheet/item-form
     CadastroClienteModalComponent,
     DetalhamentoComponent,
     ItensOrcamentoTabelaComponent,
-    ItemFormBottomSheetComponent
+    ItemFormBottomSheetComponent,
+    ClienteComponent,
+    DetalhamentoInternoComponent,
+    ItemInternoFormBottomSheetComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +62,7 @@ import { ItemFormBottomSheetComponent } from './item-form-bottom-sheet/item-form
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,

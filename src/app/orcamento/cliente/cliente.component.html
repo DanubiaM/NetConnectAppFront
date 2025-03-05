@@ -1,0 +1,48 @@
+<form [formGroup]="clienteFormGroup">
+
+    <h2>Encontre um cliente</h2>
+    <div class="flex space-x-4 items-center">
+        <mat-form-field class="flex-auto w-64">
+            <mat-label>Clientes</mat-label>
+            <div class="flex flex-row justify-center items-center">
+                <input type="text" placeholder="Escolha um" aria-label="Cliente" matInput [formControl]="cliente"
+                    [matAutocomplete]="auto">
+                <button type="button" (click)="onClearFilter()">
+                    <mat-icon class="text-sm">close</mat-icon>
+                </button>
+            </div>
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+
+        </mat-form-field>
+        <button class="flex-none w-32" mat-flat-button color="primary" (click)="openDialog()">Novo</button>
+    </div>
+    <div class="mb-4">
+        <h3>Informações do Cliente</h3>
+        <div class="border-2 border-zinc-600">
+            <div class="flex flex-row justify-center items-center info__header">
+                <mat-icon class="text-2xl">apartment</mat-icon>
+            </div>
+            <div>
+                <div class="flex flex-column place-content-around py-5" *ngIf="!mostrarCliente">
+                    Nenhum cliente encontrado
+                </div>
+                <div class="flex flex-column place-content-around py-5" *ngIf="mostrarCliente && clienteFiltered">
+                    <div class="flex flex-col justify-between ">
+                        <p> {{clienteFiltered.nome}}</p>
+                        <p> {{clienteFiltered.identificacao}}</p>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <p> Endereço {{clienteFiltered.endereco}} </p>
+                        <p> Telefone {{clienteFiltered.telefone}} </p>
+                        <p> E-mail {{clienteFiltered.email}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

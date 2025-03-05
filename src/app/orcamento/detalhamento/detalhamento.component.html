@@ -1,7 +1,7 @@
 <div>
     <div class="flex flex-row justify-start gap-[20vw] py-3">
-        <p>Orçamento Nº <em>1020</em></p>
-        <p>Cliente <em>Fazenda Marajá</em></p>
+        <p>Orçamento Nº <em>{{orcamentoNumero}}</em></p>
+        <p>Cliente <em>{{clienteSelecionado ? clienteSelecionado.nome : '' }}</em></p>
     </div>
     <div class="flex flex-row justify-between">
         <mat-form-field class="example-full-width">
@@ -28,7 +28,7 @@
     </mat-form-field>
     <div>
         <mat-tab-group dynamicHeight color="primary" backgroundColor="primary">
-            <mat-tab label="Detalhe">
+            <mat-tab label="Detalhamento Cliente">
                 <div class="pb-3">                  
                     <div class="flex justify-start py-3">
                         <button  mat-flat-button matTooltip="Primary" color="primary" (click)="addDataOnTable()" >
@@ -39,9 +39,17 @@
                 </div>
             </mat-tab>
             <mat-tab label="Detalhamento Interno">
-              <div class="example-large-box mat-elevation-z4">
-                Large content
-              </div>
+                <div class="pb-3">                  
+                    <div class="flex justify-start py-3">
+                        <button  mat-flat-button matTooltip="Primary" color="primary" (click)="addDataOnInternalTable()" >
+                            <mat-icon>add</mat-icon> Adicionar
+                        </button>
+                    </div>
+                    <app-detalhamento-interno></app-detalhamento-interno>
+                    <div class="example-large-box mat-elevation-z4">
+                        Large content
+                      </div>
+                </div>
             </mat-tab>
           </mat-tab-group>
     </div>

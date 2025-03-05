@@ -13,9 +13,9 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./cadastro.component.css'],
   providers: [CadastroClienteModalComponent]
 })
-export class CadastroComponent implements OnInit {
+export class CadastroComponent {
 
-  clientFormGroup = this._formBuilder.group({
+  firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
 
@@ -23,52 +23,16 @@ export class CadastroComponent implements OnInit {
     secondCtrl: ['', Validators.required],
   });
 
-  myControl = new FormControl('');
+  clienteOrcamento!: Cliente;
 
-  filteredOptions: Observable<string[]>;
-  clientes: Cliente[];
-  clienteFiltered: Cliente | null = null;
-  mostrarCliente: boolean = false;
+  constructor(private _formBuilder: FormBuilder) {
 
-
-  constructor(private orcamentoService: OrcamentoService,
-    private _formBuilder: FormBuilder,
-    public dialog: MatDialog) {
-    this.filteredOptions = of([]);
-    this.clientes = orcamentoService.getClientes();
   }
 
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+  updateClienteSelecionado(cliente: Cliente){
+    this.clienteOrcamento = cliente;
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.clientes.filter(option => option.nome.toLowerCase().includes(filterValue))
-      .map(option => option.nome);
-  }
-
-  onOptionSelected(event: any): void {
-    const selectedValue = event.option.value;
-    this.clienteFiltered = this.clientes.find(cliente => cliente.nome === selectedValue) || null;
-
-    if (this.clienteFiltered != null) {
-      this.mostrarCliente = true;
-    }
-  }
-
-  onClearFilter(): void {
-    this.myControl.setValue('');
-    this.mostrarCliente = false;
-  }
-
-  openDialog() {
-    this.dialog.open(CadastroClienteModalComponent);
-  }
   
 
 }
