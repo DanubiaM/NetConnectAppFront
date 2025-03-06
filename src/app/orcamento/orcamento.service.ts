@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { DashboardInfo } from './dto/dashboard';
 import { OrcamentosTabela } from './dto/orcamentoTabela';
 import { Cliente } from './dto/cliente';
+import { Item } from './dto/Item';
+import { BehaviorSubject, Subject } from 'rxjs';
+import {v4 as uuidv4} from 'uuid';
 
 const DASHBOARD_DATA: DashboardInfo =  {num_orcamento:500, num_orcamento_fechado:232,num_orcamento_aberto:454};
 const ORCAMENTOS_TABELA_DATA: OrcamentosTabela[] = 
@@ -143,6 +146,14 @@ const LISTA_CLIENTES: Cliente[] = [
 
 @Injectable()
 export class OrcamentoService {
+
+  private item = new Subject<Item>(); 
+
+  itemToSend = this.item.asObservable();
+
+  sendItem(data: Item) {
+    this.item.next(data)
+  }
 
   constructor() { }
 

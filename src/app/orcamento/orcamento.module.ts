@@ -23,7 +23,7 @@ import { CadastroClienteModalComponent } from './cadastro-cliente-modal/cadastro
 import { DetalhamentoComponent } from './detalhamento/detalhamento.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ItensOrcamentoTabelaComponent } from './itens-orcamento-tabela/itens-orcamento-tabela.component';
+import { DetalhamentoExternoComponent } from './detalhamento-externo/detalhamento-externo.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { ItemFormBottomSheetComponent } from './item-form-bottom-sheet/item-form-bottom-sheet.component';
@@ -39,7 +39,7 @@ import { ItemInternoFormBottomSheetComponent } from './item-interno-form-bottom-
     CadastroComponent,
     CadastroClienteModalComponent,
     DetalhamentoComponent,
-    ItensOrcamentoTabelaComponent,
+    DetalhamentoExternoComponent,
     ItemFormBottomSheetComponent,
     ClienteComponent,
     DetalhamentoInternoComponent,

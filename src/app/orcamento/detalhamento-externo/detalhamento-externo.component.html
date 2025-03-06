@@ -1,3 +1,8 @@
+<div class="flex justify-start py-3">
+  <button  mat-flat-button matTooltip="Primary" color="primary" (click)="createNewItem()" >
+      <mat-icon>add</mat-icon> Adicionar
+  </button>
+</div>
 <table [dataSource]="dataSource" mat-table class="mat-elevation-z8 demo-table">    
     <ng-container matColumnDef="descricao">
       <th mat-header-cell *matHeaderCellDef>Descrição</th>

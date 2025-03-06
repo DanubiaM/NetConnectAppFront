@@ -20,27 +20,4 @@ export class DetalhamentoComponent {
 
   @Input() clienteSelecionado!: Cliente;
 
-  addDataOnTable() { 
-    this.newItem = {
-      id: uuidv4(),
-      descricao: '',
-      quantidade: 0,
-      valor_unitario:  0,
-      desconto:  0,
-      total: 0
-    } 
-  }
-
-  addDataOnInternalTable() { 
-    this.newItemInterno = {
-      id: uuidv4(),
-      descricao: '',
-      quantidade: 0,
-      valor_unitario:  0,
-      fornecedor: '',
-      tipo:  '',
-      total: 0
-    } 
-  }
-
 }
