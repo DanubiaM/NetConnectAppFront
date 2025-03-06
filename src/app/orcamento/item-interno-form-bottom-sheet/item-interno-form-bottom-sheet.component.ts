@@ -1,9 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {v4 as uuidv4} from 'uuid';
-import { Item } from '../dto/Item';
+import { v4 as uuidv4 } from 'uuid';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { ItemFormBottomSheetComponent } from '../item-form-bottom-sheet/item-form-bottom-sheet.component';
+import { ItemInterno } from '../dto/ItemInterno';
 
 @Component({
   selector: 'app-item-interno-form-bottom-sheet',
@@ -18,33 +17,49 @@ export class ItemInternoFormBottomSheetComponent {
     quantidade: new FormControl(0),
     valor_unitario: new FormControl(0),
     fornecedor: new FormControl(''),
-    tipo: new FormControl(''),
-    desconto: new FormControl(0),
-});
+    tipo: new FormControl('')
+  });
 
-   constructor(private _bottomSheetRef: MatBottomSheetRef<ItemFormBottomSheetComponent>,
-     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
-   ) {};
- 
-  sendToTable(){
-    const formValues = this.itemInternoForm.value;
-    const valorTotalItem = this.calTotalItem(formValues.valor_unitario ?? 0, formValues.quantidade ?? 0, formValues.desconto ?? 0);
-    
-    const itemUpdated : Item = {
-      id: formValues.id ?? uuidv4(),
-      descricao : formValues.descricao ?? "Descrição Invalida",
-      quantidade : Number(formValues.quantidade) ?? 0,
-      valor_unitario : Number(formValues.valor_unitario) ?? 0,
-      desconto: Number(formValues.desconto) ?? 0,
-      total : valorTotalItem
-    }
 
-    // this.itemToSend.emit(itemUpdated);
-    this._bottomSheetRef.dismiss();
+  @Output() itemToSend = new EventEmitter<ItemInterno>();
+
+  constructor(
+    private _bottomSheetRef: MatBottomSheetRef<ItemInternoFormBottomSheetComponent>,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
+  ) { };
+
   
+  ngOnInit() {
+    this.itemInternoForm.setValue({
+      id: this.data.item.id,
+      descricao: this.data.item.descricao,
+      quantidade: this.data.item.quantidade,
+      valor_unitario: this.data.item.valor_unitario,
+      fornecedor: this.data.item.fornecedor,
+      tipo: this.data.item.tipo
+    });
   }
 
-  calTotalItem(valor_unitario: number = 0, quantidade: number = 0 , desconto: number = 0){
-    return  quantidade * valor_unitario * (1- (desconto /100)) ;
+  sendToTable() {
+    const formValues = this.itemInternoForm.value;
+    const valorTotalItem = this.calTotalItem(formValues.valor_unitario ?? 0, formValues.quantidade ?? 0);
+
+    const itemUpdated: ItemInterno = {
+      id: formValues.id ?? uuidv4(),
+      descricao: formValues.descricao ?? "Descrição Invalida",
+      quantidade: Number(formValues.quantidade) ?? 0,
+      valor_unitario: Number(formValues.valor_unitario) ?? 0,
+      fornecedor: formValues.fornecedor ?? "Fornecedor Invalido",
+      tipo: formValues.tipo ?? "Tipo Invalido",
+      total: valorTotalItem
+    }
+    
+    this.itemToSend.emit(itemUpdated);
+    this._bottomSheetRef.dismiss();
+
+  }
+  
+  calTotalItem(valor_unitario: number = 0, quantidade: number = 0) {
+    return quantidade * valor_unitario;
   }
 }
