@@ -31,6 +31,7 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { DetalhamentoInternoComponent } from './detalhamento-interno/detalhamento-interno.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ItemInternoFormBottomSheetComponent } from './item-interno-form-bottom-sheet/item-interno-form-bottom-sheet.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { ItemInternoFormBottomSheetComponent } from './item-interno-form-bottom-
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatRadioModule,
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
