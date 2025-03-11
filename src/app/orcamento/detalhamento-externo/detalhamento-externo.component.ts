@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ItemFormBottomSheetComponent } from '../item-form-bottom-sheet/item-form-bottom-sheet.component';
 import {v4 as uuidv4} from 'uuid';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -16,10 +17,16 @@ import {v4 as uuidv4} from 'uuid';
 export class DetalhamentoExternoComponent {
   displayedColumns: string[] = ['descricao', 'quantidade', 'valor_unitario',  'desconto', 'total', 'settings'];
   dataSource : Item[] = [];
+  totalOrcamento : number = 0;
+  totalDesconto : number = 0;
+  observacoes = new FormControl('');
+  valorAdicional = new FormControl(0);
+  tipoDesconto = new FormControl('');
+  valorDesconto = new FormControl(0);
+  
 
   @ViewChild(MatTable) table!: MatTable<Item>;
  
-
   constructor( 
     private _snackBar: MatSnackBar, 
     private _bottomSheet: MatBottomSheet,
@@ -93,4 +100,6 @@ export class DetalhamentoExternoComponent {
   openSnackBar(mensagem: string ) {
     this._snackBar.open(mensagem, "✔️",{ duration: 5000});
   }
+
+ 
 }
