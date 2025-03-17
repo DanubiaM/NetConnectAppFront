@@ -67,13 +67,6 @@
   <div class="relative border rounded-xl p-3  border-[#636363]">
     <h3 class="absolute  -top-4 left-5 bg-[#424242] px-3">Totais</h3>
     <div class="flex flex-row justify-start items-center gap-5">
-      Valor Adicional<br/>
-      <div class="flex row justify-start items-center gap-5">
-        <mat-form-field class="w-32">
-          <mat-icon matSuffix>attach_money</mat-icon>
-          <input type="number" value="0" min="0" matInput [formControl]="valorAdicional">
-        </mat-form-field>
-      </div>   
       Desconto<br />        
       <div class="flex-row justify-start items-center gap-5">
         <!-- <label class="example-margin">Align:</label> -->
@@ -87,9 +80,10 @@
       </div>
     </div>
     <div class="flex flex-row justify-between items-end gap-5 place-content-center">
-     <p>Total Itens: <em>150</em> </p> <br/>
-     <p> Total Desconto: <em>R$ 150,00</em></p> <br/>
-     <p>Total Orçamento <em class="text-base font-sans tracking-wide">R$15000,00</em></p> <br/>
+     <p>Total Itens <em>{{qtdItens}}</em> </p> <br/>
+     <p>Total Desconto <em>{{totalDesconto | currency:'BRL':'symbol'}}</em></p> <br/>
+     <p>Total Orçamento Sem Desconto <em class="text-base font-sans tracking-wide">{{totalOrcamento | currency:'BRL':'symbol'}}</em></p> <br/>
+     <p>Total Orçamento <em class="text-base font-sans tracking-wide">{{totalOrcamentoComDesconto | currency:'BRL':'symbol'}}</em></p> <br/>
     </div>
   </div>
 </section>

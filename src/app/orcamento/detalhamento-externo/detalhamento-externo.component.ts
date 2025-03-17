@@ -1,5 +1,5 @@
 import { OrcamentoService } from './../orcamento.service';
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Item } from '../dto/Item';
 import { MatTable } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,16 +14,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './detalhamento-externo.component.html',
   styleUrls: ['./detalhamento-externo.component.css']
 })
-export class DetalhamentoExternoComponent {
+export class DetalhamentoExternoComponent implements OnInit  {
   displayedColumns: string[] = ['descricao', 'quantidade', 'valor_unitario',  'desconto', 'total', 'settings'];
   dataSource : Item[] = [];
   totalOrcamento : number = 0;
+  totalOrcamentoComDesconto : number = 0;
   totalDesconto : number = 0;
+  qtdItens : number = 0;
   observacoes = new FormControl('');
-  valorAdicional = new FormControl(0);
-  tipoDesconto = new FormControl('');
+  tipoDesconto = new FormControl('%');
   valorDesconto = new FormControl(0);
-  
 
   @ViewChild(MatTable) table!: MatTable<Item>;
  
@@ -32,16 +32,28 @@ export class DetalhamentoExternoComponent {
     private _bottomSheet: MatBottomSheet,
     private orcamentoService: OrcamentoService) 
   {
-  } 
+  }
+  
+  ngOnInit() {
+    this.tipoDesconto.valueChanges.subscribe(valor => {    
+      this.calcularDesconto();
+    });
+
+    this.valorDesconto.valueChanges.subscribe(valor => {
+      this.calcularDesconto();
+    });
+
+  }
  
   deleteItem(id: string){
 
     this.dataSource.filter((item,index) => {
       if(item.id == id){
         this.dataSource.splice(index,1)
+        this.totalOrcamento -= item.total;
       }
     })
-
+    this.calcularDesconto()
     this.table.renderRows();
     this.openSnackBar("Item removido com sucesso!")
   }
@@ -81,18 +93,24 @@ export class DetalhamentoExternoComponent {
    });
   }
 
-  updateItem(updatedItem: Item){
+  updateItem(updatedItem: Item) {
+    this.totalOrcamento += updatedItem.total;
+
     this.dataSource.forEach( (item, index) => {
       if(item.id === updatedItem.id){
         this.dataSource.splice(index,1);
+        this.totalOrcamento -= item.total;
       }
     });
 
+    this.calcularDesconto()
     this.updateTable(updatedItem);
+
   }
 
   updateTable(newRow: Item){
     this.dataSource.push(newRow)
+    this.qtdItens = this.dataSource.length;
     this.table.renderRows();
     this.openSnackBar("Tabela atualizado com sucesso!")
   }
@@ -101,5 +119,20 @@ export class DetalhamentoExternoComponent {
     this._snackBar.open(mensagem, "✔️",{ duration: 5000});
   }
 
+  calcularDesconto(){
+
+    var tipo : string = this.tipoDesconto.value ? this.tipoDesconto.value : '%';
+    var valorDesconto : number = this.valorDesconto.value ? this.valorDesconto.value : 0;
+
+    if (tipo == '%') {
+      this.totalDesconto = this.totalOrcamento * (valorDesconto / 100);
+      this.totalOrcamentoComDesconto = this.totalOrcamento - this.totalDesconto;
+    }
+
+    if (tipo == 'R$') {
+      this.totalDesconto = valorDesconto;
+      this.totalOrcamentoComDesconto = this.totalOrcamento - valorDesconto;
+    }
+  }
  
 }
