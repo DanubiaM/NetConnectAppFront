@@ -17,8 +17,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class DetalhamentoExternoComponent implements OnInit  {
   displayedColumns: string[] = ['descricao', 'quantidade', 'valor_unitario',  'desconto', 'total', 'settings'];
   dataSource : Item[] = [];
-  totalOrcamento : number = 0;
-  totalOrcamentoComDesconto : number = 0;
+  totalOrcamentoSemDesconto : number = 0;
+  private _totalOrcamento : number = 0;
   totalDesconto : number = 0;
   qtdItens : number = 0;
   observacoes = new FormControl('');
@@ -34,6 +34,15 @@ export class DetalhamentoExternoComponent implements OnInit  {
   {
   }
   
+  get totalOrcamento(): number {
+    return this._totalOrcamento;
+  }
+
+  set totalOrcamento(valor: number) {
+    this._totalOrcamento = valor;
+    this.orcamentoService.setTotalOrcamento(valor);
+  }
+
   ngOnInit() {
     this.tipoDesconto.valueChanges.subscribe(valor => {    
       this.calcularDesconto();
@@ -50,7 +59,7 @@ export class DetalhamentoExternoComponent implements OnInit  {
     this.dataSource.filter((item,index) => {
       if(item.id == id){
         this.dataSource.splice(index,1)
-        this.totalOrcamento -= item.total;
+        this.totalOrcamentoSemDesconto -= item.total;
       }
     })
     this.calcularDesconto()
@@ -94,12 +103,12 @@ export class DetalhamentoExternoComponent implements OnInit  {
   }
 
   updateItem(updatedItem: Item) {
-    this.totalOrcamento += updatedItem.total;
+    this.totalOrcamentoSemDesconto += updatedItem.total;
 
     this.dataSource.forEach( (item, index) => {
       if(item.id === updatedItem.id){
         this.dataSource.splice(index,1);
-        this.totalOrcamento -= item.total;
+        this.totalOrcamentoSemDesconto -= item.total;
       }
     });
 
@@ -125,13 +134,13 @@ export class DetalhamentoExternoComponent implements OnInit  {
     var valorDesconto : number = this.valorDesconto.value ? this.valorDesconto.value : 0;
 
     if (tipo == '%') {
-      this.totalDesconto = this.totalOrcamento * (valorDesconto / 100);
-      this.totalOrcamentoComDesconto = this.totalOrcamento - this.totalDesconto;
+      this.totalDesconto = this.totalOrcamentoSemDesconto * (valorDesconto / 100);
+      this.totalOrcamento = this.totalOrcamentoSemDesconto - this.totalDesconto;
     }
 
     if (tipo == 'R$') {
       this.totalDesconto = valorDesconto;
-      this.totalOrcamentoComDesconto = this.totalOrcamento - valorDesconto;
+      this.totalOrcamento = this.totalOrcamentoSemDesconto - valorDesconto;
     }
   }
  

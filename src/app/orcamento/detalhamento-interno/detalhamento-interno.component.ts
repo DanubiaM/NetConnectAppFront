@@ -16,13 +16,14 @@ import { FormControl } from '@angular/forms';
 export class DetalhamentoInternoComponent implements OnInit {
   displayedColumns: string[] = ['descricao', 'quantidade', 'valor_unitario', 'fornecedor', 'tipo', 'total', 'settings'];
   dataSource: ItemInterno[] = [];
+  totalOrcamentoSemDesconto: number = 0;
   totalOrcamento: number = 0;
-  totalOrcamentoComDesconto: number = 0;
   totalDesconto: number = 0;
+  totalCobrado: number = 0;
+
   qtdItens: number = 0;
   observacoes = new FormControl('');
-  tipoDesconto = new FormControl('%');
-  valorDesconto = new FormControl(0);
+
 
   @ViewChild(MatTable) table!: MatTable<ItemInterno>;
 
@@ -48,6 +49,11 @@ export class DetalhamentoInternoComponent implements OnInit {
       this.updateTable(newItem);
 
     });
+
+    this.orcamentoService.totalOrcamentoFinal.subscribe(data => {
+      this.totalCobrado = data;
+    })
+
   }
 
   openBottomSheet(itemToEdit: ItemInterno): void {

@@ -148,11 +148,17 @@ const LISTA_CLIENTES: Cliente[] = [
 export class OrcamentoService {
 
   private item = new Subject<Item>(); 
+  private totalOrcamento = new Subject<number>(); 
 
   itemToSend = this.item.asObservable();
+  totalOrcamentoFinal = this.totalOrcamento.asObservable();
 
   sendItem(data: Item) {
     this.item.next(data)
+  }
+
+  setTotalOrcamento(data: number) {
+    this.totalOrcamento.next(data)
   }
 
   constructor() { }
