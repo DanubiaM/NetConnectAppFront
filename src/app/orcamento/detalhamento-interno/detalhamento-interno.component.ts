@@ -16,10 +16,12 @@ import { FormControl } from '@angular/forms';
 export class DetalhamentoInternoComponent implements OnInit {
   displayedColumns: string[] = ['descricao', 'quantidade', 'valor_unitario', 'fornecedor', 'tipo', 'total', 'settings'];
   dataSource: ItemInterno[] = [];
-  totalOrcamentoSemDesconto: number = 0;
-  totalOrcamento: number = 0;
-  totalDesconto: number = 0;
   totalCobrado: number = 0;
+  totalGasto: number = 0;
+  totalItens: number = 0;
+  totalGastoProduto: number = 0;
+  totalGastoServico: number = 0;
+  lucroTotal: number = 0;
 
   qtdItens: number = 0;
   observacoes = new FormControl('');
@@ -52,8 +54,10 @@ export class DetalhamentoInternoComponent implements OnInit {
 
     this.orcamentoService.totalOrcamentoFinal.subscribe(data => {
       this.totalCobrado = data;
+      this.lucroTotal = this.totalCobrado - this.totalGasto;
     })
 
+  
   }
 
   openBottomSheet(itemToEdit: ItemInterno): void {
@@ -84,19 +88,25 @@ export class DetalhamentoInternoComponent implements OnInit {
   }
 
   updateTable(newRow: ItemInterno) {
+    this.updateGastos(newRow, "PUSH");
+
     this.dataSource.push(newRow)
+    this.totalItens = this.dataSource.length;
+    
     this.table.renderRows();
 
   }
 
   deleteItem(id: string) {
 
-    this.dataSource.filter((item, index) => {
+    this.dataSource.forEach((item, index) => {
       if (item.id == id) {
         this.dataSource.splice(index, 1)
+        this.updateGastos(item, "REMOVE");
       }
     })
 
+    this.totalItens = this.dataSource.length;
     this.table.renderRows();
     this.openSnackBar("Item removido com sucesso!")
   }
@@ -107,9 +117,11 @@ export class DetalhamentoInternoComponent implements OnInit {
 
   updateItem(updatedItem: ItemInterno) {
 
-    this.dataSource.forEach((item, index) => {
+    this.dataSource.forEach( (item, index) => {
+  
       if (item.id === updatedItem.id) {
         this.dataSource.splice(index, 1);
+        this.updateGastos(item, "REMOVE");
       }
     });
 
@@ -118,4 +130,25 @@ export class DetalhamentoInternoComponent implements OnInit {
     this.openSnackBar("Item " + updatedItem.descricao + " atualizado com sucesso!")
   }
 
+  updateGastos(item: ItemInterno, operacao: string){
+    var valueToUpdate = operacao === 'REMOVE'? -item.total : item.total;
+
+    if(item.tipo == 'PRODUTO'){    
+      this.totalGastoProduto += valueToUpdate;
+    }
+
+    if(item.tipo == 'SERVICO'){
+      this.totalGastoServico += valueToUpdate;
+
+    }
+  
+    this.totalGasto = this.totalGastoProduto + this.totalGastoServico;
+    this.lucroTotal = this.totalCobrado - this.totalGasto;
+  }
+
+  porcentagemLucro(): number
+  {
+    var porcentagemLucro =  ((this.lucroTotal / this.totalCobrado) * 100);
+    return porcentagemLucro? porcentagemLucro : 0;
+  }
 }

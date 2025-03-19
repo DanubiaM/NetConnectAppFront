@@ -71,14 +71,14 @@
     <h3 class="absolute  -top-4 left-5 bg-[#424242] px-3">Totais</h3>
     <div class="grid grid-cols-2">     
         <p>Total Cobrado  <em>{{totalCobrado | currency:'BRL':'symbol'}}</em> </p> 
-        <p>Gasto Total <em>{{qtdItens}}</em> </p> 
-        <p>Lucro <em>{{qtdItens}}</em> %</p>
-        <p>Gasto Produtos <em>{{qtdItens}}</em> </p>
-        <p>Itens <em>{{qtdItens}}</em> </p> 
-        <p>Gasto Serviço <em>{{qtdItens}}</em> </p> 
+        <p>Gasto Total <em>{{totalGasto  | currency:'BRL':'symbol'}}</em> </p> 
+        <p>Lucro <em>{{porcentagemLucro() | number:'1.2-2'}}</em> %</p>
+        <p>Gasto Produtos <em>{{lucroTotal  | currency:'BRL':'symbol'}}</em> </p>
+        <p>Itens <em>{{totalItens}}</em> </p> 
+        <p>Gasto Serviço <em>{{totalGastoServico  | currency:'BRL':'symbol'}}</em> </p> 
     </div>
     <div class="flex flex items-end place-content-end">
-      <p>Lucro Total <em class="text-base font-sans tracking-wide">{{totalOrcamento |
+      <p>Lucro Total <em class="text-base font-sans tracking-wide">{{lucroTotal |
         currency:'BRL':'symbol'}}</em></p> <br />
     </div>
   </div>
